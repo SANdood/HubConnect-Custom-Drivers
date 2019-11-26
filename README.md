@@ -2,15 +2,37 @@
 A collection of custom drivers to use with HubConnect
 
 ## Using these Custom Drivers with HubConnect
-1. Install and save the desired Custom Driver in the **Drivers** section of your HubConnect Server, and on any HubConnect Remote Client that you want to use the (reflected) device on. *Note that some drivers will not work on SmartThings Hubs*
+### Install and Configure Custom Driver on your HubConnect Server (master)
+1. Install and save the desired Custom Driver in the **Drivers** section of your HubConnect Server.
 2. On the HubConnect Server:
-  * Open the `HubConnect Server for Hubitat` application
-  * Click on `Manage Custom Drivers`
-  * Click on `Add A Driver`
-  * Fill in the `Attribute Class Name` and `Device Driver Name` as shown below for the driver you installed in step 1.
-  * Select the `Attribute 1/18` type from the options list, as shown below
-  * Fill in the remainder of the Attributes as shown below
-3. 
+   * Open the `HubConnect Server for Hubitat` application
+   * Click on `Manage Custom Drivers`
+   * Click on `Add A Driver`
+   * Fill in the `Attribute Class Name` and `Device Driver Name` as shown below for the driver you installed in step 1.
+   * Select the `Attribute 1/18` type from the options list, as shown below
+   * Fill in the remainder of the Attributes as shown below
+3. Click `Save`
+4. Click `Done`
+5. Click `Home` (or `Next`)
+
+### Install Custom Driver on any HubConnect Remote Clients
+This is only necessary if you want to reflect a Custom Device as a device on your Remote Client. If the device is physically installed on your Remote Client, you do not need to install the Custom Device (but it doesn't hurt anything if you do).
+1. Install and save the desired Custom Driver in the **Drivers** section of the HubConnect Remote Client that you want to use the (reflected) device on. *Note that some drivers will not work on SmartThings Hubs*
+
+### Reflect a Custom Device from your HubConnect Server
+1. Open the appropriate `HubConnect Server Instance` application for the target Remote Client
+2. Click on `Connect local devices to Remote Hub`
+3. Click on `Custom Devices`
+4. Click on the desired Custom Driver definition
+5. Select the desired local devices that you want to reflect using this driver. ***Be sure that the Custom Driver is already installed on the Remote Client!***
+6. When finished, click Done/Next all the way back to the main menu
+### Reflect a Custom Device from a HubConnect Remote Client
+1. Open `HubConnect Remote Client` application on the Remote Hub
+2. Click on `Select devices to synchronize to Server hub`
+3. Click on `Custom Devices`. Here you should see the list of Custom Drivers that you Installed & Configured in the very first step above. 
+4. Click on the desired Custom Driver definition
+5. Select the desired local devices that you want to reflect using this driver. ***Be sure that the Custom Driver is already installed on the Remote Client!***
+6. When finished, click Done/Next all the way back to the main menu
 ### HubConnect EchoSpeaks
 #### Works With [Echo Speaks by tonesto7](https://github.com/tonesto7/echo-speaks)
 * Hubitat webSockets-only, as HubConnect limits the number of attributes that can be reflected via http
