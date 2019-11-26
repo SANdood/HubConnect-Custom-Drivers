@@ -23,6 +23,7 @@ metadata
 			   importUrl: "https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20Relative%20Humidity%20Sensor")
 	{
 		capability "Relative Humidity Measurement"
+		capability "Sensor"
 		capability "Refresh"
 
 		attribute "version", "string"
