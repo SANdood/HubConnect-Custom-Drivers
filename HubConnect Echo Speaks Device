@@ -337,7 +337,7 @@ def setLevel(level) {
 	parent.sendDeviceEvent(device.deviceNetworkId, "setLevel", [level])
 }
 def setTrack(String uri, metaData="") {
-    logWarn("Uh-Oh... The setTrack(uri: $uri, meta: $meta) Command is NOT Supported by this Device!!!", true)
+    log.warn("Uh-Oh... The setTrack(uri: $uri, meta: $meta) Command is NOT Supported by this Device!!!")
 	parent.sendDeviceEvent(device.deviceNetworkId, "setTrack", [uri, metadata])
 }
 def stop() {
