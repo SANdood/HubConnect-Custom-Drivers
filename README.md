@@ -37,6 +37,8 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 6. When finished, click Done/Next all the way back to the main menu
 
 ### HubConnect EchoSpeaks
+**importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20EchoSpeaks
+
 #### Works With [Echo Speaks by tonesto7](https://github.com/tonesto7/echo-speaks)
 * Hubitat webSockets-only, as HubConnect limits the number of attributes that can be reflected via http. Cannt be used with SmartThings-hosted Echo Speaks, nor to reflect Hubitat-hosted Echo Speaks to a SmartThings hub.
 #### HubConnect Configuration
@@ -62,6 +64,8 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 * **Attribute 18/18:** `alexaGuardStatus`
 
 ### HubConnect EcoVent
+**importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20EcoVent
+
 #### Works With [Econet EV100 Vent for Hubitat (my custom version)](https://github.com/SANdood/Hubitat-Stuff/blob/master/Econet-EV100-Vent.groovy)
 * Tested for use reflecting Hubitat-based EcoVents to SmartThings Remote Hub
 #### HubConnect Configuration
@@ -73,6 +77,8 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 * **Attribute 4/18:** `contactSensor`
 
 ### HubConnect Illuminance Sensor
+**importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20Illuminance%20Sensor
+
 #### Works With all Illuminance Sensors
 * Useful to reflect `illuminance` only from multi-sensor devices
 #### HubConnect Configuration
@@ -81,6 +87,8 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 * **Attribute 1/18:** `illuminanceMeasurement`
 
 ### HubConnect MyQ Garage Door Opener
+**importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20MyQ%20Garage%20Door%20Opener
+
 #### Works With Brian Beaird's MyQ Lite Garage Door Opener
 #### HubConnect Configuration
 * **Attribute Class Name:** `MyQGarageDoor`
@@ -94,6 +102,8 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 * **Attribute 7/18:** `myQDeviceId`
 
 ### HubConnect Relative Humidity Sensor
+**importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20Relative%20Humidity%20Sensor
+
 #### Works With all Relative Humidity Sensors
 * Useful to reflect 'humidity' only from multi-sensor devices
 * Probably works with moisture sensors as well
@@ -103,6 +113,8 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 * **Attribute 1/18:** `relativeHumidityMeasurement`
 
 ### HubConnect Temperature Sensor
+**importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20Temperature%20Sensor
+
 #### Works With all Temperature Sensors
 * Useful to reflect `temperature` only from multi-sensor devices
 #### HubConnect Configuration
