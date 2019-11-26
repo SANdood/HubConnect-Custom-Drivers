@@ -17,7 +17,8 @@
  */
 metadata 
 {
-	definition(name: "HubConnect EcoVent", namespace: "shackrat", author: "Steve White")
+	definition(name: "HubConnect EcoVent", namespace: "shackrat", author: "Steve White & Barry Burke",
+			   importUrl: "https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20EcoVent")
 	{
 		capability "Switch Level"
 		capability "Actuator"
