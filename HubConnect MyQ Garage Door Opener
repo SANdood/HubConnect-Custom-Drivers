@@ -21,7 +21,7 @@
 metadata {
 	definition (name: "HubConnect MyQ Garage Door Opener", namespace: "shackrat", author: "Steve White/BrianBeaird/Barry Burke", 
 				vid: "generic-contact-4", ocfdevicetype: "oic.d.garagedoor", mnmn: "SmartThings",
-			    importUrl: "") {
+			    importUrl: "https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20MyQ%20Garage%20Door%20Opener") {
 		capability "Door Control"
 		capability "Garage Door Control"
 		capability "Contact Sensor"
