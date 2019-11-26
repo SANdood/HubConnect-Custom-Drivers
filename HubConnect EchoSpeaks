@@ -17,7 +17,8 @@
  */
 metadata 
 {
-	definition(name: "HubConnect EchoSpeaks", namespace: "shackrat", author: "Steve White", importUrl: "https://raw.githubusercontent.com/HubitatCommunity/HubConnect/master/UniversalDrivers/HubConnect-SpeechSynthesis.groovy")
+	definition(name: "HubConnect EchoSpeaks", namespace: "shackrat", author: "Steve White & Barry Burke", 
+		   importUrl: "https://raw.githubusercontent.com/")
 	{
 		capability "Actuator"
 		capability "Initialize"
