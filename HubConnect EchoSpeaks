@@ -1,0 +1,569 @@
+/*
+ *	Copyright 2019 Barry Burke
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ *	use this file except in compliance with the License. You may obtain a copy
+ *	of the License at:
+ *
+ *		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ *	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ *	License for the specific language governing permissions and limitations
+ *	under the License.
+ *
+ *
+ */
+metadata 
+{
+	definition(name: "HubConnect EchoSpeaks", namespace: "shackrat", author: "Steve White", importUrl: "https://raw.githubusercontent.com/HubitatCommunity/HubConnect/master/UniversalDrivers/HubConnect-SpeechSynthesis.groovy")
+	{
+		capability "Actuator"
+		capability "Initialize"
+		capability "Audio Notification"
+		if (isST) capability "Audio Track Data" // To support SharpTools.io Album Art feature
+        capability "Audio Volume"
+        capability "Music Player"
+        capability "Notification"
+        capability "Refresh"
+        capability "Sensor"
+        capability "Speech Synthesis"
+		capability "SpeechSynthesis"
+
+		attribute "audioTrackData", "JSON_OBJECT"
+		
+		attribute "alarmVolume", "number"
+        attribute "alexaNotifications", "JSON_OBJECT"
+        attribute "alexaPlaylists", "JSON_OBJECT"
+        attribute "alexaGuardStatus", "string"
+        attribute "alexaWakeWord", "string"
+        attribute "btDeviceConnected", "string"
+        attribute "btDevicesPaired", "JSON_OBJECT"
+        attribute "currentAlbum", "string"
+        attribute "currentStation", "string"
+        attribute "deviceFamily", "string"
+        attribute "deviceStatus", "string"
+        attribute "deviceStyle", "string"
+        attribute "deviceType", "string"
+        attribute "doNotDisturb", "string"
+        attribute "firmwareVer", "string"
+        attribute "followUpMode", "string"
+        attribute "lastCmdSentDt", "string"
+        attribute "lastSpeakCmd", "string"
+        attribute "lastSpokenToTime", "number"
+        attribute "lastVoiceActivity", "string"
+        attribute "lastUpdated", "string"
+        attribute "mediaSource", "string"
+        attribute "onlineStatus", "string"
+        attribute "permissions", "string"
+        attribute "supportedMusic", "string"
+        attribute "trackImage", "string"
+        attribute "trackImageHtml", "string"
+
+        attribute "volume", "number"
+        attribute "wakeWords", "enum"
+        attribute "wifiNetwork", "string"
+        attribute "wasLastSpokenToDevice", "string"
+		
+		attribute "version", "string"
+		
+
+		if (isST) command "playText",			["string"] //This command is deprecated in ST but will work, still exists on HE
+        command "playTextAndResume", 			[]
+        command "playTrackAndResume",			[]
+        command "playTrackAndRestore",			[]
+        command "playTextAndRestore",			[]
+        command "replayText",					[]
+        command "doNotDisturbOn",				[]
+        command "doNotDisturbOff",				[]
+        // command "followUpModeOn",			[]
+        // command "followUpModeOff",			[]
+		command "resetQueue",					[]
+		if (isST) {
+			command "setAlarmVolume", 			["number"]
+			command "playWeather", 				["number", "number"]
+			command "playSingASong", 			["number", "number"]
+			command "playFlashBrief", 			["number", "number"]
+			command "playFunFact", 				["number", "number"]
+			command "playTraffic", 				["number", "number"]
+			command "playJoke", 				["number", "number"]
+			command "playSoundByName",			["string", "number", "number"]
+			command "playTellStory", 			["number", "number"]
+			command "sayGoodbye", 				["number", "number"]
+			command "sayGoodNight", 			["number", "number"]
+			command "sayBirthday", 				["number", "number"]
+			command "sayCompliment", 			["number", "number"]
+			command "sayGoodMorning", 			["number", "number"]
+			command "sayWelcomeHome", 			["number", "number"]
+			// command "playCannedRandomTts", 	["string", "number", "number"]
+			// command "playCannedTts", 		["string", "string", "number", "number"]
+			command "playAnnouncement", 		["string", "number", "number"]
+			command "playAnnouncement", 		["string", "string", "number", "number"]
+			command "playAnnouncementAll", 		["string", "string"]
+			command "playCalendarToday", 		["number", "number"]
+			command "playCalendarTomorrow", 	["number", "number"]
+			command "playCalendarNext", 		["number", "number"]
+		} else {
+			command "setAlarmVolume", 			[[name: "Volume Level*", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playWeather", 				[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playSingASong", 			[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playFlashBrief", 			[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playFunFact", 				[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playTraffic", 				[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playJoke", 				[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playSoundByName",			["string", "number", "number"]
+			command "playTellStory", 			[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "sayGoodbye", 				[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "sayGoodNight", 			[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "sayBirthday", 				[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "sayCompliment", 			[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "sayGoodMorning", 			[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "sayWelcomeHome", 			[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			// command "playCannedRandomTts", 	["string", "number", "number"]
+			// command "playCannedTts", 		["string", "string", "number", "number"]
+			command "playAnnouncement", 		[[name: "Text*", type: "STRING", description: "Text to speak"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playAnnouncement", 		[[name: "Text*", type: "STRING", description: "Text to speak"],
+												 [name: "Title", type: "STRING", description: "Title text (for Echo Show)"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playAnnouncementAll", 		[[name: "Text*", type: "STRING", description: "Text to speak"],
+												 [name: "Title", type: "STRING", description: "Title text (for Echo Show)"]]
+			command "playCalendarToday", 		[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playCalendarTomorrow", 	[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "playCalendarNext", 		[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+		}
+        command "stopAllDevices", 				[]
+		if (isST) {
+			command "searchMusic", 				["string", "string", "number", "number"]
+			command "searchAmazonMusic", 		["string", "number", "number"]
+			command "searchAppleMusic", 		["string", "number", "number"]
+			command "searchPandora", 			["string", "number", "number"]
+			command "searchIheart", 			["string", "number", "number"]
+			command "searchSiriusXm", 			["string", "number", "number"]
+			command "searchSpotify", 			["string", "number", "number"]
+			// command "searchTidal", 			["string", "number", "number"]
+			command "searchTuneIn", 			["string", "number", "number"]
+			command "sendAlexaAppNotification", ["string"]
+			command "executeSequenceCommand", 	["string"]
+			command "executeRoutineId", 		["string"]
+			command "createAlarm", 				["string", "string", "string"]
+			command "createReminder", 			["string", "string", "string"]
+			command "removeNotification", 		["string"]
+			command "setWakeWord", 				["string"]
+			command "renameDevice", 			["string"]
+		} else {
+			command "searchMusic", 				[[name: "Search Phrase*", type: "STRING", description: "Text to search for"],
+												 [name: "Provider*", type: "ENUM", description: "Pick an option", 
+												  constraints: ["Amazon Music", "My Library", "Pandora", "SiriusXM", "Spotify", "TuneIn", "iHeartRadio"]],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "searchAmazonMusic", 		[[name: "Search Phrase*", type: "STRING", description: "Text to search for"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "searchAppleMusic", 		[[name: "Search Phrase*", type: "STRING", description: "Text to search for"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "searchPandora", 			[[name: "Search Phrase*", type: "STRING", description: "Text to search for"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "searchIheart", 			[[name: "Search Phrase*", type: "STRING", description: "Text to search for"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "searchSiriusXm", 			[[name: "Search Phrase*", type: "STRING", description: "Text to search for"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "searchSpotify", 			[[name: "Search Phrase*", type: "STRING", description: "Text to search for"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			// command "searchTidal", 			[[name: "Search Phrase*", type: "STRING", description: "Text to search for"],
+			//									 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+			//									 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "searchTuneIn", 			[[name: "Search Phrase*", type: "STRING", description: "Text to search for"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "sendAlexaAppNotification", [[name: "Text*", type: "STRING", description: "Alexa app notification to send"]]
+			command "executeSequenceCommand", 	[[name: "Command Sequence*", type: "STRING", description: "List of commands to execute"]]
+			command "executeRoutineId", 		[[name: "Routine ID*", type: "STRING", description: "Echo Speaks routine to execute"]]
+			command "createAlarm", 				[[name: "Label*", type: "STRING", description: "Alarm label"],
+												 [name: "Date*", type: "STRING", description: "Alarm date (yyyy-mm-dd)"],
+												 [name: "Time*", type: "STRING", description: "Alarm time (hh:mm)"]]
+			command "createReminder", 			[[name: "Label*", type: "STRING", description: "Reminder label"],
+												 [name: "Date*", type: "STRING", description: "Reminder date (yyyy-mm-dd)"],
+												 [name: "Time*", type: "STRING", description: "Reminder time (hh:mm)"]]
+			command "removeNotification", 		[[name: "ID*", type: "STRING", description: "Notification ID to remove"]]
+			command "setWakeWord", 				[[name: "Wake word*", type: "ENUM", description: "Pick an option", 
+												  constraints: ["Alexa", "Amazon", "Echo", "Computer"]]]
+			command "renameDevice", 			[[name: "Name*", type: "STRING", description: "New name for this device"]]
+		}
+        command "storeCurrentVolume",			[]
+        command "restoreLastVolume",			[]
+        command "togglePlayback",				[]
+		if (isST) {
+       		command "setVolumeAndSpeak", 		["number", "string"]
+        	command "setVolumeSpeakAndRestore", ["number", "string", "number"]
+		} else {
+			command "setVolumeAndSpeak", 		[[name: "Volume Level*", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Text*", type: "STRING", description: "Text to speak"]]
+        	command "setVolumeSpeakAndRestore", [[name: "Volume Level*", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Text*", type: "STRING", description: "Text to speak"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+		}
+        command "volumeUp",						[]
+        command "volumeDown",					[]
+        command "speechTest",					[]
+        command "sendTestAnnouncement",			[]
+        command "sendTestAnnouncementAll",		[]
+        command "getDeviceActivity",			[]
+        command "getBluetoothDevices",			[]
+		if (isST) {
+        	command "connectBluetooth", 		["string"]
+			command "removeBluetooth", 			["string"]
+			command "sendAnnouncementToDevices",["string", "string", "string", "number", "number"]
+			command "setMute", 					["string"]
+		} else {
+			command "connectBluetooth", 		[[name: "Bluetooth Device*", type: "STRING", description: "Bluetooth device Name or Address"]]
+			command "removeBluetooth", 			[[name: "Bluetooth Device*", type: "STRING", description: "Bluetooth device Name or Address"]]
+			command "sendAnnouncementToDevices",[[name: "Text*", type: "STRING", description: "Text to speak"],
+												 [name: "Title", type: "STRING", description: "Title text (for Echo Show)"],
+												 [name: "Devices", type: "STRING", description: "List of devices (JSON)"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],												 
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
+			command "setMute", 					[[name: "Mute State*", type: "ENUM", description: "Pick an option", constraints: ["muted", "unmuted"]]]
+		}
+        command "disconnectBluetooth",			[]	
+		command "sync",							[]
+	}
+}
+//
+// Platform Commands
+//
+def installed() {
+	initialize()
+}
+def updated() {
+	initialize()
+}
+def initialize() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "initialize")
+}
+def refresh() {
+	// The server will update status
+	parent.sendDeviceEvent(device.deviceNetworkId, "refresh")
+}
+def parse(String description) {
+	// In a virtual world this should never be called.
+	log.trace "Msg: Description is $description"
+}
+def sync() {
+	parent.syncDevice(device.deviceNetworkId, "SpeechSynthesis")
+	sendEvent([name: "version", value: "v${driverVersion.major}.${driverVersion.minor}.${driverVersion.build}"])
+}
+//
+// Speech Synthesis Commands
+//
+def mute() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "mute")
+}
+def unmute() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "unmute")
+}
+def setVolume(value) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "setVolume", [value])
+}
+def speak(value) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "speak", [value])
+}
+def volumeUp() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "volumeUp")
+}
+def volumeDown() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "volumeDown")
+}
+//
+// Audio Volume Command
+//
+def setMute(String state) {
+	if (state == 'muted') { mute(); } else { unmute(); }
+}
+//
+// Music Player Commands
+//
+def nextTrack() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "nextTrack")
+}
+def pause() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "pause")
+}
+def play() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "play")
+}
+def playTrack(uri) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "playTrack", [uri])
+}
+def previousTrack() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "previousTrack")
+}
+def restoreTrack() {
+    log.warn("Uh-Oh... The restoreTrack() Command is NOT Supported by this Device!!!")
+	parent.sendDeviceEvent(device.deviceNetworkId, "restoreTrack")
+}
+def resumeTrack() {
+    log.warn("Uh-Oh... The resumeTrack() Command is NOT Supported by this Device!!!")
+	parent.sendDeviceEvent(device.deviceNetworkId, "resumeTrack")
+}
+def setLevel(level) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "setLevel", [level])
+}
+def setTrack(String uri, metaData="") {
+    logWarn("Uh-Oh... The setTrack(uri: $uri, meta: $meta) Command is NOT Supported by this Device!!!", true)
+	parent.sendDeviceEvent(device.deviceNetworkId, "setTrack", [uri, metadata])
+}
+def stop() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "stop")
+}
+//
+// Audio Notification Commands
+//
+def playTrackAndResume(uri, duration, volume=null) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "playTrackAndResume", [uri, duration, volume])
+}
+def playTrackAndRestore(uri, duration, volume=null) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "playTrackAndRestore", [uri, duration, volume])
+}
+//
+// Echo Speaks Commands
+//
+def playText(String msg) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "playText", [msg])
+}
+def playTextAndResume(text, volume=null) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "playTextAndResume", [text, volume])
+}
+def playTextAndRestore(text, volume=null) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "playTextAndRestore", [text, volume])
+}
+def replayText() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "replayText")
+}
+def doNotDisturbOn() {
+    parent.sendDeviceEvent(device.deviceNetworkId, "doNotDisturbOn")
+}
+def doNotDisturbOff() {
+    parent.sendDeviceEvent(device.deviceNetworkId, "doNotDisturbOff")
+}
+//def followUpModeOn() {
+//    parent.sendDeviceEvent(device.deviceNetworkId, "followUpModeOn")
+//}
+//def followUpModeOff() {
+//    parent.sendDeviceEvent(device.deviceNetworkId, "followUpModeOff")
+//}
+def setAlarmVolume(vol) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "setAlarmVolume", [vol])
+}
+def resetQueue() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "resetQueue")
+}
+def playWeather(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playWeather", [volume, restoreVolume])
+}
+def playSingASong(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playSingASong", [volume, restoreVolume])
+}
+def playFlashBrief(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playFlashBrief", [volume, restoreVolume])
+}
+def playFunFact(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playFunFact", [volume, restoreVolume])
+}
+def playTraffic(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playTraffic", [volume, restoreVolume])
+}
+def playJoke(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playJoke", [volume, restoreVolume])
+}
+def playSoundByName(String name, volume=null, restoreVolume=null) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "playSoundByName", [name, volume, restoreVolume])
+}
+def playTellStory(volume=null, restoreVolume=null) {
+   parent.sendDeviceEvent(device.deviceNetworkId, "playTellStory", [volume, restoreVolume])
+}
+def sayGoodbye(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "sayGoodbye", [volume, restoreVolume])
+}
+def sayGoodNight(volume=null, restoreVolume=null) {
+   parent.sendDeviceEvent(device.deviceNetworkId, "sayGoodNight", [volume, restoreVolume])
+}
+def sayBirthday(volume=null, restoreVolume=null) {
+   parent.sendDeviceEvent(device.deviceNetworkId, "sayBirthday", [volume, restoreVolume])
+}
+def sayCompliment(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "sayCompliment", [volume, restoreVolume])
+}
+def sayGoodMorning(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "sayGoodMorning", [volume, restoreVolume])
+}
+def sayWelcomeHome(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "sayWelcomeHome", [volume, restoreVolume])
+}
+def playAnnouncement(String msg, volume=null, restoreVolume=null) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "playAnnouncement", [msg, volume, restoreVolume])
+}
+def playAnnouncement(String msg, String title, volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playAnnouncement", [msg, title, volume, restoreVolume])
+}
+def playAnnouncementAll(String msg, String title=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playAnnouncementAll", [msg, title])
+}
+def playCalendarToday(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playCalendarToday", [volume, restoreVolume])
+}
+def playCalendarTomorrow(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playCalendarTomorrow", [volume, restoreVolume])
+}
+def playCalendarNext(volume=null, restoreVolume=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "playCalendarNext", [volume, restoreVolume])
+}
+def stopAllDevices() {
+    parent.sendDeviceEvent(device.deviceNetworkId, "stopAllDevices")
+}
+def searchMusic(String searchPhrase, String providerId, volume=null, sleepSeconds=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "searchMusic", [searchPhrase, providerId, volume, sleepSeconds])
+}
+def searchAmazonMusic(String searchPhrase, volume=null, sleepSeconds=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "searchAmazonMusic", [searchPhrase, volume, sleepSeconds])
+}
+def searchAppleMusic(String searchPhrase, volume=null, sleepSeconds=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "searchAppleMusic", [searchPhrase, volume, sleepSeconds])
+}
+def searchPandora(String searchPhrase, volume=null, sleepSeconds=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "searchPandora", [searchPhrase, volume, sleepSeconds])
+}
+def searchIheart(String searchPhrase, volume=null, sleepSeconds=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "searchIheart", [searchPhrase, volume, sleepSeconds])
+}
+def searchSiriusXm(String searchPhrase, volume=null, sleepSeconds=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "searchSiriusXm", [searchPhrase, volume, sleepSeconds])
+}
+def searchSpotify(String searchPhrase, volume=null, sleepSeconds=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "searchSpotify", [searchPhrase, volume, sleepSeconds])
+}
+// def searchTidal(String searchPhrase, volume=null, sleepSeconds=null) {
+//    parent.sendDeviceEvent(device.deviceNetworkId, "searchTidal", [searchPhrase, volume, sleepSeconds])
+// }
+def searchTuneIn(String searchPhrase, volume=null, sleepSeconds=null) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "searchTuneIn", [searchPhrase, volume, sleepSeconds])
+}
+def sendAlexaAppNotification(String text) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "sendAlexaAppNotification", [text])
+}
+def executeSequenceCommand(String seqStr) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "executeSequenceCommand", [seqStr])
+}
+def createAlarm(String alarmLbl, String alarmDate, String alarmTime) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "createAlarm", [alarmLbl, alarmDate, alarmTime])
+}
+def createReminder(String remLbl, String remDate, String remTime) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "createAlarm", [remLbl, remDate, remTime])
+}
+def removeNotification(String id) {
+    parent.sendDeviceEvent(device.deviceNetworkId, "removeNotification", [id])
+}
+def setWakeWord(String newWord) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "setWakeWord", [newWord])
+}
+def renameDevice(newName) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "renameDevice", [newName])
+}
+def storeCurrentVolume() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "storeCurrentVolume")
+}
+private restoreLastVolume() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "restoreLastVolume")
+}
+def togglePlayback() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "togglePlayback")
+}
+def setVolumeAndSpeak(volume, String msg) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "setVolumeAndSpeak", [volume, msg])
+}
+def setVolumeSpeakAndRestore(volume, String msg, restVolume=null) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "setVolumeSpeakAndRestore", [volume, msg, restVolume])
+}
+def speechTest(ttsMsg) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "speechTest", [ttsMsg])
+}
+def sendTestAnnouncement() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "sendTestAnnouncement")
+}
+def sendTestAnnouncementAll() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "sendTestAnnouncementAll")
+}
+def getDeviceActivity() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "getDeviceActivity")
+}
+def getBluetoothDevices() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "getBluetoothDevices")
+}
+def connectBluetooth(String btNameOrAddr) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "connectBluetooth", [btNameOrAddr])
+}
+def disconnectBluetooth() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "disconnectBluetooth")
+}
+def removeBluetooth(String btNameOrAddr) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "removeBluetooth", [btNameOrAddr])
+}
+def sendAnnouncementToDevices(String msg, String title=null, devObj, volume=null, restoreVolume=null) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "sendAnnouncementToDevices", [msg, title, volume, restoreVolume])
+}
+def playURL(uri) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "playURL", [uri])
+}
+def playSoundAndTrack(soundUri, duration, trackData, volume=null) {
+    log.warn("Uh-Oh... The playSoundAndTrack(soundUri: $soundUri, duration: $duration, trackData: $trackData, volume: $volume) Command is NOT Supported by this Device!!!")
+	parent.sendDeviceEvent(device.deviceNetworkId, "playSoundAndTrack", [soundUri, duration, trackData, volume])
+}
+
+// **************************************************************************************************************************
+// SmartThings/Hubitat Portability Library (SHPL)
+// Copyright (c) 2019, Barry A. Burke (storageanarchy@gmail.com)
+String getPlatform() { (physicalgraph?.device?.HubAction ? 'SmartThings' : 'Hubitat') }	// if (platform == 'SmartThings') ...
+boolean getIsST()     { (physicalgraph?.device?.HubAction ? true : false) }					// if (isST) ...
+boolean getIsHE()     { (hubitat?.device?.HubAction ? true : false) }						// if (isHE) ...
+
+String getHubPlatform() {
+	def pf = getPlatform()
+	state?.hubPlatform = pf			// if (state.hubPlatform == 'Hubitat') ...
+											// or if (state.hubPlatform == 'SmartThings')...
+	state?.isST = pf.startsWith('S')	// if (state.isST) ...
+	state?.isHE = pf.startsWith('H')	// if (state.isHE) ...
+	return pf
+}
+boolean getIsSTHub() { return state.isST }					// if (isSTHub) ...
+boolean getIsHEHub() { return state.isHE }					// if (isHEHub) ...
+
+def getParentSetting(String settingName) {
+	// def ST = (state?.isST != null) ? state?.isST : isST
+	return isST ? parent?.settings?."${settingName}" : parent?."${settingName}"
+}
+
+def getDriverVersion() {[platform: "Universal", major: 1, minor: 5, build: 0]}
