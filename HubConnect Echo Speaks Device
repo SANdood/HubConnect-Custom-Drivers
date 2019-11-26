@@ -17,8 +17,8 @@
  */
 metadata 
 {
-	definition(name: "HubConnect EchoSpeaks", namespace: "shackrat", author: "Steve White & Barry Burke", 
-		   importUrl: "https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20EchoSpeaks")
+	definition(name: "HubConnect Echo Speaks Device", namespace: "shackrat", author: "Steve White & Barry Burke", 
+		   importUrl: "https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20Echo%20Speaks%20Device")
 	{
 		capability "Actuator"
 		capability "Initialize"
@@ -119,7 +119,9 @@ metadata
 												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
 			command "playJoke", 				[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
 												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
-			command "playSoundByName",			["string", "number", "number"]
+			command "playSoundByName",			[[name: "Sound Name", type: "STRING", description: "Sound to play (amzn_sfx_*)"],
+												 [name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
+												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
 			command "playTellStory", 			[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
 												 [name: "Restore Volume", type: "NUMBER", description: "Volume Level (0 to 100)"]]
 			command "sayGoodbye", 				[[name: "Volume Level", type: "NUMBER", description: "Volume Level (0 to 100)"],
