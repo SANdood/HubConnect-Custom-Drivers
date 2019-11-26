@@ -24,6 +24,7 @@ metadata
 	{
 		capability "Illuminance Measurement"
 		capability "Refresh"
+		capability "Sensor"
 
 		attribute "version", "string"
 		
