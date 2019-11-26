@@ -39,7 +39,7 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 ### HubConnect EchoSpeaks
 **importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20EchoSpeaks
 
-#### Works With [Echo Speaks by tonesto7](https://github.com/tonesto7/echo-speaks)
+#### Works With [Echo Speaks by Anthony Santilli (@tonesto7)](https://github.com/tonesto7/echo-speaks)
 * Hubitat webSockets-only, as HubConnect limits the number of attributes that can be reflected via http. Cannt be used with SmartThings-hosted Echo Speaks, nor to reflect Hubitat-hosted Echo Speaks to a SmartThings hub.
 #### HubConnect Configuration
 * **Attribute Class Name:** `EchoSpeaks`
