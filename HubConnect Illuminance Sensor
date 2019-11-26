@@ -19,7 +19,8 @@
  */
 metadata 
 {
-	definition(name: "HubConnect Illuminance Sensor", namespace: "shackrat", author: "Steve White & Barry Burke")
+	definition(name: "HubConnect Illuminance Sensor", namespace: "shackrat", author: "Steve White & Barry Burke",
+	           importUrl: "https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20Illuminance%20Sensor")
 	{
 		capability "Illuminance Measurement"
 		capability "Refresh"
