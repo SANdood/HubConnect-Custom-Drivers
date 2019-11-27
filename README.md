@@ -74,7 +74,7 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 * **Attribute 1/18:** `switchLevel`
 * **Attribute 2/18:** `switch`
 * **Attribute 3/18:** `battery`
-* **Attribute 4/18:** `contactSensor`
+* **Attribute 4/18:** `contact`
 
 ### HubConnect Illuminance Sensor
 **importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20Illuminance%20Sensor
@@ -94,12 +94,14 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 * **Attribute Class Name:** `MyQGarageDoor`
 * **Device Driver Name:** `HubConnect MyQ Garage Door Opener`
 * **Attribute 1/18:** `garageDoorControl`
-* **Attribute 2/18:** `contactSensor`
+* **Attribute 2/18:** `contact`
 * **Attribute 3/18:** `acceleration`
 * **Attribute 4/18:** `doorSensor`
 * **Attribute 5/18:** `lastActivity`
 * **Attribute 6/18:** `switch`
 * **Attribute 7/18:** `myQDeviceId`
+* **Attribute 8/18:** `CloseButton`
+* **Attribute 9/18:** `OpenButton`
 
 ### HubConnect Relative Humidity Sensor
 **importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20Relative%20Humidity%20Sensor
