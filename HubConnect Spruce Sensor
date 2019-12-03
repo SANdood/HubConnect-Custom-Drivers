@@ -26,16 +26,13 @@ metadata
 		capability "Relative Humidity Measurement"
 		capability "Sensor"
 		capability "Battery"
-		capability "Refresh"
 		capability "Configuration"
-		capability "Polling"
 
 		attribute "version", "string"
 		attribute "maxHum", "string"
         attribute "minHum", "string"
         attribute "interval", "number"
         attribute "update", "number"
-        attribute "tempOffset", "number"
         
         command "resetHumidity"
 		command "sync"
