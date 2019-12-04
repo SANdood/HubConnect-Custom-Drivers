@@ -115,4 +115,4 @@ def sync()
 	parent.syncDevice(device.deviceNetworkId, "SpruceSensor")
 	sendEvent([name: "version", value: "v${driverVersion.major}.${driverVersion.minor}.${driverVersion.build}"])
 }
-def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 1, build: 6]}
+def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 6]}
