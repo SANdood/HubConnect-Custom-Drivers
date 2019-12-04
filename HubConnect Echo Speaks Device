@@ -277,7 +277,7 @@ def parse(String description) {
 	log.trace "Msg: Description is $description"
 }
 def sync() {
-	parent.syncDevice(device.deviceNetworkId, "SpeechSynthesis")
+	parent.syncDevice(device.deviceNetworkId, "EchoSpeaks")
 	sendEvent([name: "version", value: "v${driverVersion.major}.${driverVersion.minor}.${driverVersion.build}"])
 }
 //
@@ -569,4 +569,4 @@ def getParentSetting(String settingName) {
 	return isST ? parent?.settings?."${settingName}" : parent?."${settingName}"
 }
 
-def getDriverVersion() {[platform: "Universal", major: 1, minor: 5, build: 0]}
+def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 2]}
