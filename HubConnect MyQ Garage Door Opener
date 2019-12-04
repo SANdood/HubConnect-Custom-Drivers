@@ -127,14 +127,10 @@ def poll() { refresh() }
 def log(msg){
 	log.debug msg
 }
-
-def showVersion(){
-	return "3.1.1bab"
-}
 def sync()
 {
 	// The server will respond with updated status and details
 	parent.syncDevice(device.deviceNetworkId, "MyQGarageDoor")
 	sendEvent([name: "version", value: "v${driverVersion.major}.${driverVersion.minor}.${driverVersion.build}"])
 }
-def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 2]}
+def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 3]}
