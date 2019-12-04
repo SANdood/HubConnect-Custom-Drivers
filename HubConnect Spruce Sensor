@@ -81,7 +81,22 @@ def initialize()
 def parse(String description)
 {
 	log.trace "Msg: Description is $description"
-}}
+}
+
+
+/*
+	refresh
+    
+	Refreshes the device by requesting an update from the client hub.
+*/
+def refresh()
+{
+	// The server will update status
+	parent.sendDeviceEvent(device.deviceNetworkId, "refresh")
+}
+def poll() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "poll")
+}
 def resetHumidity() {
 	parent.sendDeviceEvent(device.deviceNetworkId, "resetHumidity")
 }
