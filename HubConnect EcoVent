@@ -33,6 +33,8 @@ metadata
 		command "sync"
 		command "open"
 		command "close"
+		command "closeContact"
+		command "openContact"
 	}
 	
 	tiles {
@@ -46,12 +48,20 @@ metadata
 		controlTile("levelSliderControl", "device.level", "slider", height: 1, width: 3, inactiveLabel: false, range:"(0..100)") {
 			state "level", action:"switch level.setLevel"
 		}
+		valueTile("contact", "device.contact", inactiveLabel: false, decoration: "flat") {
+			state "open", label: '${name}', icon: "st.contact.contact.open", backgroundColor: "#e86d13"
+			state "closed", label: '${name}', icon: "st.contact.contact.closed", backgroundColor: "#00A0DC"
+		}
 		standardTile("refresh", "device.switch", inactiveLabel: false, decoration: "flat") {
 			state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
 		}
+		standardTile("sync", "sync", inactiveLabel: false, decoration: "flat", width: 3, height: 2)
+		{
+			state "default", label: 'Sync', action: "sync", icon: "st.Bath.bath19"
+		}
 
 		main(["switch"])
-		details(["switch","battery","refresh","levelSliderControl"])
+		details(["switch","battery","refresh","levelSliderControl","contact","sync"])
 	}
 }
 
@@ -159,7 +169,12 @@ def open() {
 def close() {
 	off()
 }
-
+def closeContact() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "closeContact")
+}
+def openContact() {
+	parent.sendDeviceEvent(device.deviceNetworkId, "openContact")
+}
 /*
 	sync
     
@@ -171,4 +186,4 @@ def sync()
 	parent.syncDevice(device.deviceNetworkId, "EcoVent")
 	sendEvent([name: "version", value: "v${driverVersion.major}.${driverVersion.minor}.${driverVersion.build}"])
 }
-def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 2]}
+def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 3]}
