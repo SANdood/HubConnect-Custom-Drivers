@@ -134,7 +134,7 @@ def showVersion(){
 def sync()
 {
 	// The server will respond with updated status and details
-	parent.syncDevice(device.deviceNetworkId, "garagedoor")
+	parent.syncDevice(device.deviceNetworkId, "MyQGarageDoor")
 	sendEvent([name: "version", value: "v${driverVersion.major}.${driverVersion.minor}.${driverVersion.build}"])
 }
-def getDriverVersion() {[platform: "Universal", major: 1, minor: 2, build: 1]}
+def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 2]}
