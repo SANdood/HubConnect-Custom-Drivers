@@ -100,4 +100,4 @@ def sync()
 	parent.syncDevice(device.deviceNetworkId, "Humidistat")
 	sendEvent([name: "version", value: "v${driverVersion.major}.${driverVersion.minor}.${driverVersion.build}"])
 }
-def getDriverVersion() {[platform: "Universal", major: 1, minor: 0, build: 2]}
+def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 2]}
