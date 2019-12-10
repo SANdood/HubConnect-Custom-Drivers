@@ -70,22 +70,22 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 #### HubConnect Configuration
 * **Attribute Class Name:** `ESSensor`
 * **Device Driver Name:** `HubConnect Ecobee Suite Sensor`
-* **Attribute 1/18: ** `temperatureMeasurement`
-* **Attribute 2/18: ** `motion`
-* **Attribute 3/18: ** `Awake`    // Sensor used in Awake Program? off = no, on = yes
-* **Attribute 4/18: ** `Away`     // Sensor used in Away Program?
-* **Attribute 5/18: ** `Home`     // Sensor used in Home Program?
-* **Attribute 6/18: ** `Sleep`    // Sensor used in Sleep Program?
-* **Attribute 7/18: ** `Fan Only`
-* **Attribute 8/18: ** `programsList`
-* **Attribute 9/18: ** `SmartRoom`
-* **Attribute 10/18: ** `Wakeup`  // Sensor used in Wakeup Program?
-* **Attribute 11/18: ** `currentProgramName`
-* **Attribute 12/18: ** `doors`
-* **Attribute 13/18: ** `humidity`
-* **Attribute 14/18: ** `thermostatId`
-* **Attribute 15/18: ** `windows`
-* **Attribute 16/18: ** `vents`
+* **Attribute 1/18:** `temperatureMeasurement`
+* **Attribute 2/18:** `motion`
+* **Attribute 3/18:** `Awake`    // Sensor used in Awake Program? off = no, on = yes
+* **Attribute 4/18:** `Away`     // Sensor used in Away Program?
+* **Attribute 5/18:** `Home`     // Sensor used in Home Program?
+* **Attribute 6/18:** `Sleep`    // Sensor used in Sleep Program?
+* **Attribute 7/18:** `Fan Only`
+* **Attribute 8/18:** `programsList`
+* **Attribute 9/18:** `SmartRoom`
+* **Attribute 10/18:** `Wakeup`  // Sensor used in Wakeup Program?
+* **Attribute 11/18:** `currentProgramName`
+* **Attribute 12/18:** `doors`
+* **Attribute 13/18:** `humidity`
+* **Attribute 14/18:** `thermostatId`
+* **Attribute 15/18:** `windows`
+* **Attribute 16/18:** `vents`
 
 ### HubConnect Ecobee Suite Thermostat
 **importUrl:**
@@ -95,24 +95,24 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 #### HubConnect Configuration
 * **Attribute Class Name:** `ESThermostat`
 * **Device Driver Name:** `HubConnect Ecobee Suite Thermostat`
-* **Attribute 1/18: ** ``
-* **Attribute 2/18: ** ``
-* **Attribute 3/18: ** ``
-* **Attribute 4/18: ** ``
-* **Attribute 5/18: ** ``
-* **Attribute 6/18: ** ``
-* **Attribute 7/18: ** ``
-* **Attribute 8/18: ** ``
-* **Attribute 9/18: ** ``
-* **Attribute 10/18: ** ``
-* **Attribute 11/18: ** ``
-* **Attribute 12/18: ** ``
-* **Attribute 13/18: ** ``
-* **Attribute 14/18: ** ``
-* **Attribute 15/18: ** ``
-* **Attribute 16/18: ** ``
-* **Attribute 17/18: ** ``
-* **Attribute 18/18: ** ``
+* **Attribute 1/18:** ``
+* **Attribute 2/18:** ``
+* **Attribute 3/18:** ``
+* **Attribute 4/18:** ``
+* **Attribute 5/18:** ``
+* **Attribute 6/18:** ``
+* **Attribute 7/18:** ``
+* **Attribute 8/18:** ``
+* **Attribute 9/18:** ``
+* **Attribute 10/18:** ``
+* **Attribute 11/18:** ``
+* **Attribute 12/18:** ``
+* **Attribute 13/18:** ``
+* **Attribute 14/18:** ``
+* **Attribute 15/18:** ``
+* **Attribute 16/18:** ``
+* **Attribute 17/18:** ``
+* **Attribute 18/18:** ``
 
 ### HubConnect EcoVent
 **importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20EcoVent
