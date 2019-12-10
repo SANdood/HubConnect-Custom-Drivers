@@ -1,0 +1,252 @@
+/*
+ *	Copyright 2019 Steve White
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ *	use this file except in compliance with the License. You may obtain a copy
+ *	of the License at:
+ *
+ *		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ *	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ *	License for the specific language governing permissions and limitations
+ *	under the License.
+ *
+ *
+ */
+import groovy.json.*
+	
+metadata 
+{
+	definition(name: "HubConnect Ecobee Suite Thermostat", namespace: "shackrat", author: "Steve White", importUrl: "https://raw.githubusercontent.com/HubitatCommunity/HubConnect/master/UniversalDrivers/HubConnect-Thermostat.groovy")
+	{
+		capability "Sensor"
+		capability "Thermostat"
+		capability "Temperature Measurement"
+		capability "Relative Humidity Measurement"
+		capability "Motion Sensor"
+		capability "Actuator"
+		capability "Refresh"
+
+		attribute 'dehumidifierMode', 'string'
+		attribute 'dehumiditySetpoint', 'number'
+		attribute 'fanMinOnTime', 'number'
+		attribute 'holdType', 'string'
+		attribute 'humidifierMode', 'string'
+		attribute 'humiditySetpoint', 'number'
+		attribute 'scheduledProgram','string'
+		attribute 'weatherDewpoint', 'number'
+		attribute 'weatherHumidity', 'number'
+		attribute 'weatherPressure', 'number'
+		attribute 'weatherTemperature', 'number'
+		
+		attribute "version", "string"    
+		
+		command "asleep", 					[]						// We cannot overload the internal Java/Groovy definition of 'sleep()'
+		command "auxHeatOnly", 				[]
+		command "awake", 					[]
+		command "away", 					[]
+		command "fanOff", 					[]						// Missing from the Thermostat standard capability set
+		command "forceRefresh",				[]
+		command "home", 					[]		
+        command	"microphoneOff",			[]
+        command "microphoneOn",				[]
+		command "night", 					[]						// this is probably the appropriate SmartThings device command to call, matches ST mode
+		command "present", 					[]	
+		command "resumeProgram", 			[]
+		command "setDehumidifierMode", 		[[name:'Dehumidifier Mode*', type:'ENUM', description:'Select a (valid) Mode',
+											  constraints: ['auto','off','on']]]
+        command "setDehumiditySetpoint", 	[[name:'Dehumidity Setpoint*', type:'NUMBER', description:'Dehumidifier RH% setpoint (0-100)']]
+		command "setEcobeeSetting", 		[[name:'Ecobee Setting Name*', type:'STRING', description:'Name of setting to change'],
+											 [name:'Ecobee Setting Value*', type:'STRING', description:'New value for this setting']]
+		command "setFanMinOnTime", 			[[name:'Fan Minimum On Time*', type:'NUMBER', description:'Minimum fan minutes/hour (0-55)']]
+		command	"setHumidifierMode", 		[[name:'Humidifier Mode*', type:'ENUM', description:'Select a (valid) Mode',
+											  constraints: ['auto','off','on']]]
+		command "setHumiditySetpoint", 		[[name:'Humidity Setpoint*', type:'NUMBER', description:'Humidifier RH% setpoint (0-100)']]
+		command "setProgramSetpoints", 		[[name:'Program Name*', type:'STRING', description:'Program to change'],
+											 [name:'Heating Setpoint*', type:'NUMBER', description:'Heating setpoint temperature'],
+											 [name:'Cooling Setpoint*', type:'NUMBER', description:'Cooling setpoint temperature']]
+		command "setThermostatProgram", 	[[name:'Program Name*', type:'STRING', description:'Desired Program'],
+											 [name:'Hold Type*', type:'ENUM', description:'Delect and option',
+											  constraints: ['indefinite', 'nextTransition', 'holdHours']],
+											 [name:'Hold Hours', type:'NUMBER', description:'Hours to Hold (if Hold Type == Hold Hours]']]
+		command "wakeup", 					[]
+		command "sync",						[]
+	}
+}
+/*
+	Standard Device Driver Commands
+*/
+def installed()
+{
+	initialize()
+}
+def updated()
+{
+	initialize()
+}
+def initialize()
+{
+	forceRefresh()
+}
+def parse(String description)
+{
+	log.trace "Msg: Description is $description"
+}
+def refresh()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "refresh")
+}
+/*
+	Ecobee Suite Thermostat Commands
+*/
+def asleep()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "asleep")
+}
+def auto()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "auto")
+}
+def auxHeatOnly()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "auxHeatOnly")
+}
+def awake()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "awake")
+}
+def away()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "away")
+}
+def cool()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "cool")
+}
+def emergencyHeat()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "emergencyHeat")
+}
+def fanAuto()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "fanAuto")
+}
+def fanCirculate()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "fanCirculate")
+}
+def fanOff()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "fanOff")
+}
+def fanOn()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "fanOn")
+}
+def forceRefresh()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "forceRefresh")
+}
+def heat()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "heat")
+}
+def home()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "home")
+}
+def microphoneOff()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "microphoneOff")
+}
+def microphoneOn()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "microphoneOn")
+}
+def night()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "night")
+}
+def off()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "off")
+}
+def present()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "present")
+}
+def resumeProgram()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "resumeProgram")
+}
+def setCoolingSetpoint(temperature)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setCoolingSetpoint", [temperature])
+}
+def setDehumidifierMode(mode)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setDehumidifierMode", [mode])
+}
+def setDehumiditySetpoint(setpoint)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setDehumiditySetpoint", [setpoint])
+}
+def setEcobeeSetting(attribute, value)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setEcobeeSetting", [attribute, value])
+}
+def setFanMinOnTime(minutes)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setFanMinOnTime", [minutes])
+}
+def setHeatingSetpoint(temperature)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setHeatingSetpoint", [temperature])
+}
+def setHumidifierMode(mode)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setHumidifierMode", [mode])
+}
+def setHumiditySetpoint(setpoint)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setHumiditySetpoint", [setpoint])
+}
+def setProgramSetpoints(program, heat, cool)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setProgramSetpoints", [program, heat, cool])
+}
+def setSchedule(schedule)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setSchedule", [schedule.toString()])
+}
+def setThermostatFanMode(fanmode)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setThermostatFanMode", [fanmode])
+}
+def setThermostatMode(thermostatmode)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setThermostatMode", [thermostatmode])
+}
+def setThermostatProgram(program, holdType, holdHours)
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "setThermostatProgram", [program, holdType, holdHours])
+}
+def wakeup()
+{
+	parent.sendDeviceEvent(device.deviceNetworkId, "wakeup")
+}
+/*
+	sync
+    
+	Synchronizes the device details with the parent.
+*/
+def sync()
+{
+	// The server will respond with updated status and details
+//	parent.syncDevice(device.deviceNetworkId, "thermostat")
+	parent.syncDevice(device.deviceNetworkId, "ESThermostat")
+	sendEvent([name: "version", value: "v${driverVersion.major}.${driverVersion.minor}.${driverVersion.build}"])
+}
+def getDriverVersion() {[platform: "Hubitat-BAB", major: 1, minor: 0, build: 1]}
