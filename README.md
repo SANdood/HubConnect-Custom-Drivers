@@ -88,31 +88,221 @@ This is only necessary if you want to reflect a Custom Device as a device on you
 * **Attribute 16/18:** `vents`
 
 ### HubConnect Ecobee Suite Thermostat
+#### Works With [Ecobee Suite](https://github.com/SANdood/Ecobee-Suite)
+* As of HubConnect 1.6.1, users can now configure up to 50 attributes to be reflected from an http-connected sources (SmartThings, or Hubitat configured not to use WebSockets). Listed below are the ***required***, **recommended**, *alternative* and `not recommended` attributes that you  can configure. (Note that for Hubbbitat-based HubConnected hubs using WebSockets, ALL attribbutes will be reflected and updated).
 **importUrl:**
-* Designed for reflecting SmartThings-based Ecobee Suite Thermostats to Hubitat, or Hubitat to Hubitat. Will not save as a SmartThings DTH.
+* Designed for reflecting Ecobee Suite Thermostats to Hubitat hubs only. Will not save as a SmartThings DTH.
 * ***IMPORTANT NOTE: Ecobee Suite Helpers are NOT supported by this reflected device!***
 
 #### HubConnect Configuration
 * **Attribute Class Name:** `ESThermostat`
 * **Device Driver Name:** `HubConnect Ecobee Suite Thermostat`
-* **Attribute 1/18:** ``
-* **Attribute 2/18:** ``
-* **Attribute 3/18:** ``
-* **Attribute 4/18:** ``
-* **Attribute 5/18:** ``
-* **Attribute 6/18:** ``
-* **Attribute 7/18:** ``
-* **Attribute 8/18:** ``
-* **Attribute 9/18:** ``
-* **Attribute 10/18:** ``
-* **Attribute 11/18:** ``
-* **Attribute 12/18:** ``
-* **Attribute 13/18:** ``
-* **Attribute 14/18:** ``
-* **Attribute 15/18:** ``
-* **Attribute 16/18:** ``
-* **Attribute 17/18:** ``
-* **Attribute 18/18:** ``
+* Primary attribute: ***thermostatOperatingState***
+##### Required Attributes
+* coolingSetpoint
+* coolingSetpointRange
+* heatingSetpoint
+* heatingSetpointRange
+* humidity
+* motion
+* schedule
+* supportedThermostatFanModes
+* supportedThermostatModes
+* temperature
+* thermostatFanMode
+* thermostatMode
+* thermostatSetpoint
+* thermostatSetpointRange
+##### Recommended Attributes
+* autoAway
+* coolDifferential
+##### Alternative Attributes
+* *autoHeatCoolFeatureEnabled* // wether `autoMode` is enabled (change with `setEcobeeSetting()`
+* currentProgram  // e.g. "Home"
+* currentProgramName  // e.g. "Hold: Home"
+
+##### Possibilities
+* backlightOffDuringSleep
+* backlightOffTime
+* backlightOnIntensity
+* backlightSleepIntensity
+* brand
+* coolAtSetpoint
+
+##### Not Recommended
+Most of these you will configure once, and then they will never change. Or, they are internal-use only.
+* autoMode     // if enabled, will show "auto" in supportedThermostatModes
+* auxHeatMode
+* auxMaxOutdoorTemp
+* auxOutdoorTempAlert
+* auxOutdoorTempAlertNotify
+* auxRuntimeAlert
+* auxRuntimeAlertNotify
+* auxOutdoorTempAlertNotifyTechnician
+* auxRuntimeAlertNotifyTechnician
+* coldTempAlert
+* coldTempAlertEnabled
+* compressorProtectionMinTemp
+* compressorProtectionMinTime
+* condensationAvoid // deprecated - no longer used by Ecobee
+* coolMaxTemp
+* coolMinTemp
+* coolMode
+* coolRange
+* coolRangeHigh
+* coolRangeLow
+* coolStages
+* coolingLockout
+* coolingSetpointDisplay  // internal
+* coolingSetpointMax
+* coolingSetpointMin
+* coolingSetpointTile
+* currentProgramId  // internal
+* currentProgramOwner  // internal
+* currentProgramType  // internal
+
+* debugEventFromParent
+* debugLevel: 2
+* ecimalPrecision: 1
+* dehumidifierLevel: 60
+* dehumidifierMode: off
+* dehumidifyOvercoolOffset: 2.0 F
+* dehumidifyWhenHeating: false
+* dehumidifyWithAC: true
+* dehumidityLevel: 60
+* dehumiditySetpoint: 60
+* disableAlertsOnIdt: false
+* disableHeatPumpAlerts: false
+* disablePreCooling: false
+disablePreHeating: false
+drAccept: always
+ecobeeConnected: true
+eiLocation:
+electricityBillCycleMonths: 1
+electricityBillStartMonth: 1
+electricityBillingDayOfMonth: 1
+enableElectricityBillAlert: false
+enableProjectedElectricityBillAlert: false
+equipmentOperatingState: heat 1 hum
+equipmentStatus: auxHeat1,fan,humidifier
+fanControlRequired: true
+fanMinOnTime: 8
+features: Home,HomeKit
+followMeComfort: false
+groupName: ChezBurke
+groupRef: 9023c63a47fff2444152
+groupSetting: 1745
+hasBoiler: false
+hasDehumidifier: true
+hasElectric: false
+hasErv: false
+hasForcedAir: true
+hasHeatPump: false
+hasHrv: false
+hasHumidifier: true
+hasUVFilter: true
+heatAtSetpoint: 68.5 F
+heatCoolMinDelta: 4.0 F
+heatDifferential: 0.5 F
+heatMaxTemp: 120.0 F
+heatMinTemp: 45.0 F
+heatMode: true
+heatPumpGroundWater: false
+heatPumpReversalOnCool: true
+heatRange: (45..78) F
+heatRangeHigh: 78.0 F
+heatRangeLow: 45.0 F
+heatStages: 2
+heatingSetpointDisplay: 69.0 F
+heatingSetpointMax: 78.0 F
+heatingSetpointMin: 45.0 F
+heatingSetpointTile: 69.0 F
+holdAction: nextPeriod
+holdEndsAt: today at 6:00pm
+holdStatus: Hold ends today at 6:00pm
+hotTempAlert: 87.0
+hotTempAlertEnabled: true
+humidifierMode: auto
+humidityAlertNotify: true
+humidityAlertNotifyTechnician: false
+humidityHighAlert: 80
+humidityLowAlert: -1
+humiditySetpoint: 49 %
+humiditySetpointDisplay: 49 %
+identifier: 311019854581
+installerCodeRequired: false
+isRegistered: true
+isRentalProperty: false
+isVentilatorTimerOn: false
+lastHoldType: nextTransition
+lastModified: 2019-05-29 17:08:51
+lastOpState: heating
+lastPoll: Succeeded
+lastServiceDate: 2019-07-11
+locale: en
+maxSetBack: 10.0 F
+maxSetForward: 8.0 F
+microphoneEnabled:
+mobile: iOS
+modelNumber: athenaSmart
+monthlyElectricityBillLimit: 0
+monthsBetweenService: 6
+name: Downstairs
+playbackVolume:
+programsList: ["Awake", "Away", "Home", "Sleep"]
+quickSaveSetBack: 4.0 F
+quickSaveSetForward: 4.0 F
+randomStartDelayCool: 0
+randomStartDelayHeat: 0
+remindMeDate: 2020-01-11
+schedText: until 6:00pm
+scheduledProgram: Away
+scheduledProgramId: away
+scheduledProgramName: Away
+scheduledProgramOwner: system
+scheduledProgramType: program
+serviceRemindMe: true
+serviceRemindTechnician: false
+smartCirculation: false
+soundAlertVolume: 0
+soundTickVolume: 0
+stage1CoolingDifferentialTemp: 0.5 F
+stage1CoolingDissipationTime: 31
+stage1HeatingDifferentialTemp: 0.5 F
+stage1HeatingDissipationTime: 31
+statHoldAction: nextPeriod
+supportedVentModes:
+tempAlertNotify: true
+tempAlertNotifyTechnician: false
+tempCorrection: -1.0 F
+temperatureDisplay: 68.5° F
+temperatureScale: F
+thermostatFanModeDisplay: circulate
+thermostatHold: hold
+thermostatOperatingStateDisplay: heating
+thermostatSetpointMax: 78.0 F
+thermostatSetpointMin: 45.0 F
+thermostatStatus: Setpoint updating...
+thermostatTime: 2019-12-13 12:35:44
+timeOfDay: day
+userAccessCode:
+userAccessSetting: 0
+vent: off
+ventMode: off
+ventilatorDehumidify: true
+ventilatorFreeCooling: true
+ventilatorMinOnTime: 5
+ventilatorMinOnTimeAway: 0
+ventilatorMinOnTimeHome: 20
+ventilatorOffDateTime:
+ventilatorType: none
+voiceEngines:
+weatherDewpoint: 30.0 F
+weatherHumidity: 75 %
+weatherPressure: 30.42 inHg
+weatherSymbol: 3
+weatherTemperature: 37.1 F
+wifiOfflineAlert: false
 
 ### HubConnect EcoVent
 **importUrl:** https://raw.githubusercontent.com/SANdood/HubConnect-Custom-Drivers/master/HubConnect%20EcoVent
