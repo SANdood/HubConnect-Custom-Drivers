@@ -29,17 +29,201 @@ metadata
 		capability "Actuator"
 		capability "Refresh"
 
+		attribute 'apiConnected','string'
+		attribute 'autoAway', 'string'
+		attribute 'autoHeatCoolFeatureEnabled', 'string'
+		attribute 'autoMode', 'string'
+		attribute 'auxHeatMode', 'string'
+		attribute 'auxMaxOutdoorTemp', 'number'
+		attribute 'auxOutdoorTempAlert', 'number'		// temp
+		attribute 'auxOutdoorTempAlertNotify', 'string'
+		attribute 'auxRuntimeAlert', 'number'			// time
+		attribute 'auxRuntimeAlertNotify', 'string'
+		attribute 'auxOutdoorTempAlertNotifyTechnician', 'string'
+		attribute 'auxRuntimeAlertNotifyTechnician', 'string'
+		attribute 'backlightOffDuringSleep', 'string'
+		attribute 'backlightOffTime', 'number'
+		attribute 'backlightOnIntensity', 'number'
+		attribute 'backlightSleepIntensity', 'number'
+		attribute 'brand', 'string'
+		attribute 'coldTempAlert', 'number'
+		attribute 'coldTempAlertEnabled', 'string'		// or boolean?
+		attribute 'compressorProtectionMinTemp', 'number'
+		attribute 'compressorProtectionMinTime', 'number'
+		attribute 'condensationAvoid', 'string'			// boolean
+		attribute 'coolAtSetpoint', 'number'
+		attribute 'coolDifferential', 'number'
+		attribute 'coolMaxTemp', 'number'				// Read Only
+		attribute 'coolMinTemp', 'number'				// Read Only
+		attribute 'coolMode', 'string'
+		attribute 'coolRange', 'string'
+		attribute 'coolRangeHigh', 'number'
+		attribute 'coolRangeLow', 'number'
+		attribute 'coolStages', 'number'				// Read Only
+		attribute 'coolingLockout', 'string'
+		attribute 'coolingSetpointDisplay', 'number'	// Now the same as coolingSetpoint
+		attribute 'coolingSetpointMax', 'number'
+		attribute 'coolingSetpointMin', 'number'
+		attribute 'coolingSetpointRange', 'vector3'
+		attribute 'coolingSetpointTile', 'number'		// Used to show coolAt/coolTo for MultiTile
+		attribute 'coldTempAlert', 'number'
+		attribute 'coldTempAlertEnabled', 'string'
+		attribute 'currentProgram','string'				// Read only
+		attribute 'currentProgramId','string'			// Read only
+		attribute 'currentProgramName', 'string'		// Read only
+        attribute 'currentProgramOwner', 'string'		// Read only
+        attribute 'currentProgramType', 'string'		// Read only
+		attribute 'debugEventFromParent','string'		// Read only
+		attribute 'debugLevel', 'number'				// Read only - changed in preferences
+		attribute 'decimalPrecision', 'number'			// Read only - changed in preferences
+		attribute 'dehumidifierLevel', 'number'			// should be same as dehumiditySetpoint
 		attribute 'dehumidifierMode', 'string'
+		attribute 'dehumidifyOvercoolOffset', 'number'
+		attribute 'dehumidifyWhenHeating', 'string'
+		attribute 'dehumidifyWithAC', 'string'
+        attribute 'dehumidityLevel', 'number'
 		attribute 'dehumiditySetpoint', 'number'
+		attribute 'disableAlertsOnIdt', 'string'
+		attribute 'disableHeatPumpAlerts', 'string'
+		attribute 'disablePreCooling', 'string'
+		attribute 'disablePreHeating', 'string'
+		attribute 'drAccept', 'string'
+		attribute 'ecobeeConnected', 'string'
+		attribute 'eiLocation', 'string'
+		attribute 'electricityBillCycleMonths', 'string'
+		attribute 'electricityBillStartMonth', 'string'
+		attribute 'electricityBillingDayOfMonth', 'string'
+		attribute 'enableElectricityBillAlert', 'string'
+		attribute 'enableProjectedElectricityBillAlert', 'string'
+		attribute 'equipmentOperatingState', 'string'
+		attribute 'equipmentStatus', 'string'
+		attribute 'fanControlRequired', 'string'
 		attribute 'fanMinOnTime', 'number'
-		attribute 'holdType', 'string'
+		attribute 'features','string'
+		attribute 'followMeComfort', 'string'
+		attribute 'groupName', 'string'
+		attribute 'groupRef', 'string'
+		attribute 'groupSetting', 'string'
+		attribute 'hasBoiler', 'string'					// Read Only
+		attribute 'hasDehumidifier', 'string'			// Read Only
+		attribute 'hasElectric', 'string'				// Read Only
+		attribute 'hasErv', 'string'					// Read Only
+		attribute 'hasForcedAir', 'string'				// Read Only
+		attribute 'hasHeatPump', 'string'				// Read Only
+		attribute 'hasHrv', 'string'					// Read Only
+		attribute 'hasHumidifier', 'string'				// Read Only
+		attribute 'hasUVFilter', 'string'				// Read Only
+		attribute 'heatAtSetpoint', 'number'
+		attribute 'heatCoolMinDelta', 'number'
+		attribute 'heatDifferential', 'number'
+		attribute 'heatMaxTemp', 'number'				// Read Only
+		attribute 'heatMinTemp', 'number'				// Read Only
+		attribute 'heatMode', 'string'
+		attribute 'heatPumpGroundWater', 'string'		// Read Only
+		attribute 'heatPumpReversalOnCool', 'string'
+		attribute 'heatRange', 'string'
+		attribute 'heatRangeHigh', 'number'
+		attribute 'heatRangeLow', 'number'
+		attribute 'heatStages', 'number'				// Read Only
+		attribute 'heatingSetpointDisplay', 'number'	// now the same as heatingSetpoint
+		attribute 'heatingSetpointMax', 'number'
+		attribute 'heatingSetpointMin', 'number'
+		attribute 'heatingSetpointRange', 'vector3'
+		attribute 'heatingSetpointTile', 'number'		// Used to show heatAt/heatTo for MultiTile
+		attribute 'holdAction', 'string'
+		attribute 'holdEndsAt', 'string'
+		attribute 'holdStatus', 'string'
+		attribute 'hotTempAlert', 'number'
+		attribute 'hotTempAlertEnabled', 'string'
 		attribute 'humidifierMode', 'string'
+		attribute 'humidityAlertNotify', 'string'
+		attribute 'humidityAlertNotifyTechnician', 'string'
+		attribute 'humidityHighAlert', 'number'			// %
+		attribute 'humidityLowAlert', 'number'
 		attribute 'humiditySetpoint', 'number'
+		attribute 'humiditySetpointDisplay', 'string'
+		attribute 'identifier', 'string'
+		attribute 'installerCodeRequired', 'string'
+		attribute 'isRegistered', 'string' 
+		attribute 'isRentalProperty', 'string'
+		attribute 'isVentilatorTimerOn', 'string'
+		attribute 'lastHoldType', 'string'
+		attribute 'lastModified', 'string' 
+		attribute 'lastOpState', 'string'				// keeps track if we were most recently heating or cooling
+		attribute 'lastPoll', 'string'
+		attribute 'lastServiceDate', 'string'
+		attribute 'locale', 'string'
+		attribute 'logo', 'string'
+		attribute 'maxSetBack', 'number'
+		attribute 'maxSetForward', 'number'
+        attribute 'microphoneEnabled', 'string'			// // From Audio object (boolean)
+		attribute 'mobile', 'string'
+		attribute 'modelNumber', 'string' 
+		attribute 'monthlyElectricityBillLimit', 'string'
+		attribute 'monthsBetweenService', 'string'
+		attribute 'motion', 'string'
+		attribute 'name', 'string'
+        attribute 'playbackVolume', 'number'			// // From Audio object
+		attribute 'programsList', 'string'				// USAGE: List programs = new JsonSlurper().parseText(stat.currentValue('programsList'))
+		attribute 'quickSaveSetBack', 'number'
+		attribute 'quickSaveSetForward', 'number'
+		attribute 'randomStartDelayCool', 'string'
+		attribute 'randomStartDelayHeat', 'string'
+		attribute 'remindMeDate', 'string'
+		attribute 'schedText', 'string'
+		attribute 'schedule', 'string'					// same as 'currentProgram'
 		attribute 'scheduledProgram','string'
+		attribute 'scheduledProgramId','string'
+		attribute 'scheduledProgramName', 'string'
+        attribute 'scheduledProgramOwner', 'string'
+        attribute 'scheduledProgramType', 'string'
+		attribute 'serviceRemindMe', 'string'
+		attribute 'serviceRemindTechnician', 'string'
+		attribute 'setpointDisplay', 'string'
+		attribute 'smartCirculation', 'string'			// not implemented by E3, but by this code it is
+		attribute 'soundAlertVolume', 'number'			// From Audio object
+		attribute 'soundTickVolume', 'number'			// From Audio object
+		attribute 'stage1CoolingDifferentialTemp', 'number'
+		attribute 'stage1CoolingDissipationTime', 'number'
+		attribute 'stage1HeatingDifferentialTemp', 'number'
+		attribute 'stage1HeatingDissipationTime', 'number'
+		attribute 'statHoldAction', 'string'
+		attribute 'supportedThermostatFanModes', 'JSON_OBJECT' // USAGE: List theFanModes = stat.currentValue('supportedThermostatFanModes')[1..-2].tokenize(', ')
+		attribute 'supportedThermostatModes', 'JSON_OBJECT' // USAGE: List theModes = stat.currentValue('supportedThermostatModes')[1..-2].tokenize(', ')
+		attribute 'supportedVentModes', 'JSON_OBJECT' // USAGE: List theModes = stat.currentValue('supportedVentModes')[1..-2].tokenize(', ')
+		attribute 'tempAlertNotify', 'string'
+		attribute 'tempAlertNotifyTechnician', 'string'
+		attribute 'tempCorrection', 'number'
+		attribute 'temperatureDisplay', 'string'
+		attribute 'temperatureScale', 'string'
+		attribute 'thermostatFanModeDisplay', 'string'
+		attribute 'thermostatHold', 'string'
+		attribute 'thermostatOperatingStateDisplay', 'string'
+		attribute 'thermostatSetpoint','number'
+		attribute 'thermostatSetpointMax', 'number'
+		attribute 'thermostatSetpointMin', 'number'
+		attribute 'thermostatSetpointRange', 'vector3'
+		attribute 'thermostatStatus','string'
+		attribute 'thermostatTime', 'string'
+		attribute 'timeOfDay', 'enum', ['day', 'night']
+		attribute 'userAccessCode', 'string'			// Read Only
+		attribute 'userAccessSetting', 'string'			// Read Only
+		attribute 'vent', 'string'						// same as 'ventMode'
+		attribute 'ventMode', 'string'					// Ecobee actually calls it only 'vent'
+		attribute 'ventilatorDehumidify', 'string'
+		attribute 'ventilatorFreeCooling', 'string'
+		attribute 'ventilatorMinOnTime', 'number'
+		attribute 'ventilatorMinOnTimeAway', 'number'
+		attribute 'ventilatorMinOnTimeHome', 'number'
+		attribute 'ventilatorOffDateTime', 'string'		// Read Only
+		attribute 'ventilatorType', 'string'			// Read Only ('none', 'ventilator', 'hrv', 'erv')
+        attribute 'voiceEngines', 'JSON_OBJECT'			// From Audio object
 		attribute 'weatherDewpoint', 'number'
 		attribute 'weatherHumidity', 'number'
 		attribute 'weatherPressure', 'number'
+		attribute 'weatherSymbol', 'string'
 		attribute 'weatherTemperature', 'number'
+		attribute 'wifiOfflineAlert', 'string'
 		
 		attribute "version", "string"    
 		
@@ -249,4 +433,4 @@ def sync()
 	parent.syncDevice(device.deviceNetworkId, "ESThermostat")
 	sendEvent([name: "version", value: "v${driverVersion.major}.${driverVersion.minor}.${driverVersion.build}"])
 }
-def getDriverVersion() {[platform: "Hubitat-BAB", major: 1, minor: 0, build: 1]}
+def getDriverVersion() {[platform: "Hubitat-BAB", major: 1, minor: 6, build: 1]}
