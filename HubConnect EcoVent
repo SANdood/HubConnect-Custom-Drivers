@@ -138,10 +138,10 @@ def off()
     
 	Sets the level to <level> over duration <duration>.
 */
-def setLevel(value, duration=1)
+def setLevel(value)
 {
 	// The server will update status
-	parent.sendDeviceEvent(device.deviceNetworkId, "setLevel", [value, duration])
+	parent.sendDeviceEvent(device.deviceNetworkId, "setLevel", [value])
 }
 
 
