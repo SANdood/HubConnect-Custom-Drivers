@@ -532,6 +532,9 @@ def connectBluetooth(String btNameOrAddr) {
 def disconnectBluetooth() {
 	parent.sendDeviceEvent(device.deviceNetworkId, "disconnectBluetooth")
 }
+def deviceNotification(String msg) {
+	parent.sendDeviceEvent(device.deviceNetworkId, "deviceNotification", [msg])
+}
 def removeBluetooth(String btNameOrAddr) {
 	parent.sendDeviceEvent(device.deviceNetworkId, "removeBluetooth", [btNameOrAddr])
 }
@@ -569,4 +572,4 @@ def getParentSetting(String settingName) {
 	return isST ? parent?.settings?."${settingName}" : parent?."${settingName}"
 }
 
-def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 2]}
+def getDriverVersion() {[platform: "Universal-BAB", major: 1, minor: 0, build: 3]}
