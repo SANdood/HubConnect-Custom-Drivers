@@ -272,11 +272,21 @@ def updated()
 }
 def initialize()
 {
+	unschedule()
+	runEvery1Minute("refreshLRM")
 	forceRefresh()
+	refreshLRM()
 }
 def parse(String description)
 {
 	log.trace "Msg: Description is $description"
+}
+def refreshLRM()
+{
+	// Update lastRunningMode from the lastRunningMode attribute (for Google Home)
+	String lrmD = getDataValue("lastRunningMode")
+	String lrmA = device.currentValue("lastRunningMode")
+	if (lrmA && (lrmA != lrmD)) updateDataValue("lastRunningMode", lrmA)
 }
 def refresh()
 {
